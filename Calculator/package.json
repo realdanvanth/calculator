@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://realdanvanth.github.io/calculator",
+  "homepage": "https://realdanvanth.github.io/23CSE461",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -29,4 +29,3 @@
     "vite": "^7.2.4"
   }
 }
-
