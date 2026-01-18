@@ -10,7 +10,7 @@
   --card-border: #e0e0e0;
   --text-primary: #333333;
   --text-secondary: #666666;
-  --accent-color: #2196f3;
+  --accent-color: #4caf50;
   --success-bg: #e8f5e9;
   --error-bg: #ffebee;
 }
@@ -53,7 +53,7 @@ body {
   border-radius: 12px;
   padding: 2rem;
   width: 100%;
-  max-width: 450px;
+  max-width: 500px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
@@ -120,7 +120,6 @@ body {
 }
 
 .result {
-  padding: 1.25rem;
   border-radius: 8px;
 }
 
@@ -133,34 +132,66 @@ body {
   background: var(--error-bg);
   border: 1px solid #ffcdd2;
   color: #c62828;
+  padding: 1rem;
 }
 
 .result-content {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
 }
 
-.result-label {
-  font-size: 1rem;
+.result-section {
+  padding: 1rem;
+  border-bottom: 1px solid #c8e6c9;
+}
+
+.result-section:last-child {
+  border-bottom: none;
+}
+
+.result-section h3 {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.result-section.highlight {
+  background: #c8e6c9;
+  border-radius: 0 0 8px 8px;
+}
+
+.result-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.35rem 0;
+  font-size: 0.95rem;
+}
+
+.result-row span:first-child {
   color: var(--text-secondary);
 }
 
-.result-label span {
+.result-row span:last-child {
+  font-weight: 600;
   color: var(--text-primary);
-  font-weight: 500;
 }
 
-.result-sum {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #2e7d32;
+.result-row.total {
   margin-top: 0.5rem;
   padding-top: 0.75rem;
-  border-top: 1px solid #c8e6c9;
+  border-top: 1px solid #a5d6a7;
+  font-size: 1.1rem;
 }
 
-.result-sum span {
+.result-row.total span:last-child {
+  color: #1b5e20;
+}
+
+.grade {
+  font-size: 1.25rem;
+  font-weight: 700;
   color: #1b5e20;
 }
 
@@ -187,4 +218,16 @@ body {
   .button-group {
     flex-direction: column;
   }
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
 }
