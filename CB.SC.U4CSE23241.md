@@ -42,7 +42,7 @@ Mongo DB ecosystem, Importing and Exporting data, Mongo query language, Updating
 |-------|--------|------|--------------------------|----------|
 | 1 | 1 | 16/01/26 | ReactJS Program to Find Factorial, Fibonacci Series and Prime Number | 3 |
 | 2 | 2 | 16/01/26 | ReactJS Program to Find Sum of Digits of a Number | 4 |
-| 3 | 3 | 17/01/26 | ReactJS Employee Tax Calculator (SET–1) | 5 |
+| 3 | 3 | 18/01/26 | ReactJS Calculator with Arithmetic Operations & Expression Evaluator | 5 |
 | 4 | 4 | 17/01/26 | ReactJS Scientific Calculator Program | 6 |
 | 5 | 5 | 17/01/26 | ReactJS Calculator with Game Concept for Kids | 7 |
 
@@ -112,7 +112,7 @@ To create a ReactJS application for calculating the sum of digits entered by the
 ## EX.NO.: 3
 
 ### AIM:
-To design and develop an Employee Tax Calculator using ReactJS that calculates the total salary based on Basic Pay, determines the employee grade, and computes the bonus according to predefined conditions.
+To design a ReactJS Calculator that performs arithmetic operations (Addition, Subtraction, Multiplication, Division), evaluates the expression `Result = (a+b)/(a-b)*(a+b)`, calculates the sum of squares of digits (MoD_Sum_square), and checks if a number is odd or even (Even_ODD).
 
 **GitHub:** https://github.com/realdanvanth/23CSE461/tree/main/exp03
 
@@ -122,18 +122,18 @@ To design and develop an Employee Tax Calculator using ReactJS that calculates t
 |----------|---------|
 | index.html | The HTML file that acts as the entry point for the application. |
 | main.jsx | The main application file that renders the React root component |
-| App.jsx | The component that contains the logic for calculating total salary, employee grade, and bonus based on Basic Pay. |
+| App.jsx | The component that contains the logic for arithmetic operations, expression evaluation, sum of digit squares, and odd/even checking. |
 | App.css | The file that contains the styling for all UI elements in the application. |
 
 ### CONCEPTS USED IN THE APPLICATION
 
 | Concept Name | General Purpose | Code file where it is used |
 |--------------|-----------------|---------------------------|
-| useState | To store and update Basic Pay, Total Salary, Grade, and Bonus values dynamically. | App.jsx |
+| useState | To store and update values A, B, result, and operation type dynamically. | App.jsx |
 | Functional Components | To construct reusable UI components using a simple and readable approach. | App.jsx |
-| Event Handling | To trigger salary calculation, grade checking, and bonus computation through button clicks. | App.jsx |
-| Conditional Rendering | To display salary, grade, and bonus only after user interaction. | App.jsx |
-| Helper Functions | To calculate allowances, total salary, grade, and bonus in a structured manner. | App.jsx |
+| Event Handling | To trigger arithmetic operations, expression evaluation, and special operations through button clicks. | App.jsx |
+| Conditional Rendering | To display results and error messages based on user interaction. | App.jsx |
+| Helper Functions | To perform arithmetic, expression evaluation, digit square sum, and odd/even checking in a structured manner. | App.jsx |
 
 ### OUTPUT:
 **Live Demo:** https://realdanvanth.github.io/23CSE461/exp03/
