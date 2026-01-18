@@ -2,107 +2,173 @@ import { useState } from 'react'
 import './App.css'
 
 function App() {
-  const [basicPay, setBasicPay] = useState('')
+  const [valueA, setValueA] = useState('')
+  const [valueB, setValueB] = useState('')
   const [result, setResult] = useState(null)
+  const [operation, setOperation] = useState('')
 
-  // Calculate allowances based on Basic Pay
-  const calculateDA = (bp) => bp * 0.40  // 40% of Basic Pay
-  const calculateHRA = (bp) => bp * 0.20 // 20% of Basic Pay
-  const calculatePF = (bp) => bp * 0.12  // 12% of Basic Pay
-  const calculateTax = (gross) => {
-    if (gross <= 250000) return 0
-    if (gross <= 500000) return (gross - 250000) * 0.05
-    if (gross <= 1000000) return 12500 + (gross - 500000) * 0.20
-    return 112500 + (gross - 1000000) * 0.30
-  }
-
-  // Determine Grade based on Basic Pay
-  const getGrade = (bp) => {
-    if (bp >= 50000) return 'A'
-    if (bp >= 30000) return 'B'
-    if (bp >= 20000) return 'C'
-    return 'D'
-  }
-
-  // Calculate Bonus based on Grade
-  const getBonus = (bp, grade) => {
-    switch (grade) {
-      case 'A': return bp * 0.20
-      case 'B': return bp * 0.15
-      case 'C': return bp * 0.10
-      default: return bp * 0.05
-    }
-  }
-
-  const calculate = () => {
-    const bp = parseFloat(basicPay)
-    if (isNaN(bp) || bp <= 0) {
-      setResult({ error: 'Please enter a valid Basic Pay amount' })
+  // Basic arithmetic operations
+  const add = () => {
+    const a = parseFloat(valueA)
+    const b = parseFloat(valueB)
+    if (isNaN(a) || isNaN(b)) {
+      setResult({ error: 'Please enter valid numbers in both fields' })
       return
     }
+    setOperation('Addition')
+    setResult({ value: a + b })
+  }
 
-    const da = calculateDA(bp)
-    const hra = calculateHRA(bp)
-    const pf = calculatePF(bp)
-    const grossSalary = bp + da + hra
-    const annualGross = grossSalary * 12
-    const tax = calculateTax(annualGross)
-    const monthlyTax = tax / 12
-    const netSalary = grossSalary - pf - monthlyTax
-    const grade = getGrade(bp)
-    const bonus = getBonus(bp, grade)
-    const totalSalary = netSalary + bonus
+  const subtract = () => {
+    const a = parseFloat(valueA)
+    const b = parseFloat(valueB)
+    if (isNaN(a) || isNaN(b)) {
+      setResult({ error: 'Please enter valid numbers in both fields' })
+      return
+    }
+    setOperation('Subtraction')
+    setResult({ value: a - b })
+  }
 
-    setResult({
-      basicPay: bp,
-      da, hra, pf,
-      grossSalary,
-      monthlyTax,
-      netSalary,
-      grade,
-      bonus,
-      totalSalary
-    })
+  const multiply = () => {
+    const a = parseFloat(valueA)
+    const b = parseFloat(valueB)
+    if (isNaN(a) || isNaN(b)) {
+      setResult({ error: 'Please enter valid numbers in both fields' })
+      return
+    }
+    setOperation('Multiplication')
+    setResult({ value: a * b })
+  }
+
+  const divide = () => {
+    const a = parseFloat(valueA)
+    const b = parseFloat(valueB)
+    if (isNaN(a) || isNaN(b)) {
+      setResult({ error: 'Please enter valid numbers in both fields' })
+      return
+    }
+    if (b === 0) {
+      setResult({ error: 'Cannot divide by zero' })
+      return
+    }
+    setOperation('Division')
+    setResult({ value: a / b })
+  }
+
+  // Expression: (a+b)/(a-b)*(a+b)
+  const evaluateExpression = () => {
+    const a = parseFloat(valueA)
+    const b = parseFloat(valueB)
+    if (isNaN(a) || isNaN(b)) {
+      setResult({ error: 'Please enter valid numbers in both fields' })
+      return
+    }
+    if (a - b === 0) {
+      setResult({ error: 'Expression undefined: (a-b) equals zero' })
+      return
+    }
+    const expressionResult = ((a + b) / (a - b)) * (a + b)
+    setOperation('Expression: (a+b)/(a-b)*(a+b)')
+    setResult({ value: expressionResult })
+  }
+
+  // Sum of squares of digits
+  const modSumSquare = () => {
+    const a = valueA.replace(/[^0-9]/g, '')
+    if (!a) {
+      setResult({ error: 'Please enter a valid number in textbox A' })
+      return
+    }
+    let sum = 0
+    for (const digit of a) {
+      sum += parseInt(digit) ** 2
+    }
+    const digits = a.split('').map(d => `${d}²`).join(' + ')
+    setOperation(`MoD_Sum_square: ${digits}`)
+    setResult({ value: sum })
+  }
+
+  // Check even or odd
+  const checkEvenOdd = () => {
+    const a = parseInt(valueA)
+    if (isNaN(a)) {
+      setResult({ error: 'Please enter a valid integer in textbox A' })
+      return
+    }
+    const isEven = a % 2 === 0
+    setOperation('Even/Odd Check')
+    setResult({ text: `${a} is ${isEven ? 'EVEN' : 'ODD'}` })
   }
 
   const reset = () => {
-    setBasicPay('')
+    setValueA('')
+    setValueB('')
     setResult(null)
-  }
-
-  const formatCurrency = (amount) => {
-    return new Intl.NumberFormat('en-IN', {
-      style: 'currency',
-      currency: 'INR',
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0
-    }).format(amount)
+    setOperation('')
   }
 
   return (
     <div className="app">
       <header className="header">
-        <h1>Employee Tax Calculator</h1>
-        <p className="subtitle">Calculate Salary, Grade, and Bonus</p>
+        <h1>ReactJS Calculator</h1>
+        <p className="subtitle">Arithmetic Operations & Expression Evaluator</p>
       </header>
 
       <div className="calculator-card">
         <div className="input-section">
-          <label htmlFor="basic-pay">Enter Basic Pay (Monthly):</label>
+          <label htmlFor="value-a">Enter Value A:</label>
           <input
-            id="basic-pay"
+            id="value-a"
             type="number"
-            value={basicPay}
-            onChange={(e) => setBasicPay(e.target.value)}
-            onKeyDown={(e) => e.key === 'Enter' && calculate()}
-            placeholder="e.g., 35000"
+            value={valueA}
+            onChange={(e) => setValueA(e.target.value)}
+            placeholder="Enter number for A"
           />
         </div>
 
-        <div className="button-group">
-          <button className="btn-primary" onClick={calculate}>Calculate</button>
-          <button className="btn-secondary" onClick={reset}>Reset</button>
+        <div className="input-section">
+          <label htmlFor="value-b">Enter Value B:</label>
+          <input
+            id="value-b"
+            type="number"
+            value={valueB}
+            onChange={(e) => setValueB(e.target.value)}
+            placeholder="Enter number for B"
+          />
         </div>
+
+        <div className="operations-section">
+          <h3>Basic Operations</h3>
+          <div className="button-grid">
+            <button className="btn-operation" onClick={add}>Add (+)</button>
+            <button className="btn-operation" onClick={subtract}>Subtract (−)</button>
+            <button className="btn-operation" onClick={multiply}>Multiply (×)</button>
+            <button className="btn-operation" onClick={divide}>Divide (÷)</button>
+          </div>
+        </div>
+
+        <div className="operations-section">
+          <h3>Expression Evaluation</h3>
+          <p className="expression-hint">Result = (a+b)/(a−b)×(a+b)</p>
+          <button className="btn-expression" onClick={evaluateExpression}>
+            Evaluate Expression
+          </button>
+        </div>
+
+        <div className="operations-section">
+          <h3>Special Operations (on textbox A)</h3>
+          <div className="button-grid special">
+            <button className="btn-special" onClick={modSumSquare}>
+              MoD_Sum_square
+            </button>
+            <button className="btn-special" onClick={checkEvenOdd}>
+              Even_ODD
+            </button>
+          </div>
+        </div>
+
+        <button className="btn-reset" onClick={reset}>Reset</button>
 
         {result && (
           <div className={`result ${result.error ? 'error' : 'success'}`}>
@@ -110,57 +176,10 @@ function App() {
               <p>{result.error}</p>
             ) : (
               <div className="result-content">
-                <div className="result-section">
-                  <h3>Salary Breakdown</h3>
-                  <div className="result-row">
-                    <span>Basic Pay:</span>
-                    <span>{formatCurrency(result.basicPay)}</span>
-                  </div>
-                  <div className="result-row">
-                    <span>DA (40%):</span>
-                    <span>{formatCurrency(result.da)}</span>
-                  </div>
-                  <div className="result-row">
-                    <span>HRA (20%):</span>
-                    <span>{formatCurrency(result.hra)}</span>
-                  </div>
-                  <div className="result-row">
-                    <span>Gross Salary:</span>
-                    <span>{formatCurrency(result.grossSalary)}</span>
-                  </div>
-                </div>
-
-                <div className="result-section">
-                  <h3>Deductions</h3>
-                  <div className="result-row">
-                    <span>PF (12%):</span>
-                    <span>{formatCurrency(result.pf)}</span>
-                  </div>
-                  <div className="result-row">
-                    <span>Tax (Monthly):</span>
-                    <span>{formatCurrency(result.monthlyTax)}</span>
-                  </div>
-                  <div className="result-row">
-                    <span>Net Salary:</span>
-                    <span>{formatCurrency(result.netSalary)}</span>
-                  </div>
-                </div>
-
-                <div className="result-section highlight">
-                  <h3>Grade and Bonus</h3>
-                  <div className="result-row">
-                    <span>Employee Grade:</span>
-                    <span className="grade">{result.grade}</span>
-                  </div>
-                  <div className="result-row">
-                    <span>Bonus:</span>
-                    <span>{formatCurrency(result.bonus)}</span>
-                  </div>
-                  <div className="result-row total">
-                    <span>Total Salary:</span>
-                    <span>{formatCurrency(result.totalSalary)}</span>
-                  </div>
-                </div>
+                <span className="operation-label">{operation}</span>
+                <span className="result-value">
+                  {result.text || result.value}
+                </span>
               </div>
             )}
           </div>
