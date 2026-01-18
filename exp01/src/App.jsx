@@ -33,7 +33,7 @@ function App() {
     setPrimeResult({
       number: num,
       isPrime: result,
-      message: result ? `${num} is a Prime Number! 🎉` : `${num} is NOT a Prime Number`
+      message: result ? `${num} is a Prime Number` : `${num} is NOT a Prime Number`
     })
   }
 
@@ -96,14 +96,14 @@ function App() {
   return (
     <div className="app">
       <header className="header">
-        <h1>🧮 Math Utilities</h1>
+        <h1>Math Utilities</h1>
         <p className="subtitle">Prime Check • Factorial • Fibonacci Sequence</p>
       </header>
 
       <div className="cards-container">
         {/* Prime Checker Card */}
         <div className="card prime-card">
-          <div className="card-icon">🔢</div>
+
           <h2>Prime Checker</h2>
           <p className="card-description">Check if a number is prime</p>
           <div className="input-group">
@@ -125,7 +125,7 @@ function App() {
 
         {/* Factorial Card */}
         <div className="card factorial-card">
-          <div className="card-icon">❗</div>
+
           <h2>Factorial Calculator</h2>
           <p className="card-description">Calculate n! for any number</p>
           <div className="input-group">
@@ -152,7 +152,7 @@ function App() {
 
         {/* Fibonacci Card */}
         <div className="card fibonacci-card">
-          <div className="card-icon">🌀</div>
+
           <h2>Fibonacci Sequence</h2>
           <p className="card-description">Generate Fibonacci numbers</p>
           <div className="input-group">
@@ -183,7 +183,7 @@ function App() {
       </div>
 
       <footer className="footer">
-        <p>Built with React ⚛️ | EXP-01</p>
+        <p>Built with React | EXP-01</p>
       </footer>
     </div>
   )
